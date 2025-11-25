@@ -1,0 +1,21 @@
+[
+    {
+      "image": "portfolio1.jpg",
+      "title": "Project 1",
+      "category": "Web Design",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, ratione."
+    },
+    {
+      "image": "portfolio2.jpg",
+      "title": "Project 2",
+      "category": "Web Design",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, ratione."
+    },
+    {
+      "image": "portfolio3.jpg",
+      "title": "Project 3",
+      "category": "Web Design",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, ratione."
+    }
+  ]
+  
