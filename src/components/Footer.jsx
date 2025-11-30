@@ -189,12 +189,12 @@ const Footer = () => {
             custom={3}
             variants={itemVariants}
           >
-            © {currentYear} Made with
+            © {currentYear} Made 
             <motion.span
               animate={{ scale: [1, 1.2, 1] }}
               transition={{ duration: 1, repeat: Infinity }}
             >
-              <FaHeart className="text-red-500 mx-1" />
+             
             </motion.span>
             by Tanveer Tarun
           </motion.p>
