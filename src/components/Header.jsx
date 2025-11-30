@@ -13,65 +13,87 @@ const Header = () => {
       const offset = sec.offsetTop - 150;
       const height = sec.offsetHeight;
       const id = sec.getAttribute('id');
-      console.log(id)
 
       if (scrollY >= offset && scrollY < offset + height) {
         setActiveLink(`#${id}`);
       }
     });
 
-    setSticky(window.scrollY > 100);
+    setSticky(scrollY > 100);
   };
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+    setIsMenuOpen((prev) => !prev);
   };
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
-    <>
-      <header className={`fixed top-0 left-0 right-0 z-50 h-16 bg-gray-900 overflow-x-hidden ${sticky ? 'border-b border-gray-700' : ''}`}>
-        <div className="max-w-7xl mx-auto h-16 p-4 flex justify-between items-center">
-          <a href="#" className="text-2xl font-bold text-white">Portfolio</a>
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 h-16 bg-gray-900 transition-all ${
+        sticky ? 'border-b border-gray-700' : ''
+      }`}
+    >
+      <div className="max-w-7xl mx-auto h-16 px-4 flex justify-between items-center">
+        <a href="#" className="text-2xl font-bold text-white">
+          Portfolio
+        </a>
 
-          {/* Responsive menu button */}
-          <button className="text-white z-50 md:hidden" onClick={toggleMenu}>
-            <div className="relative w-6 h-6 flex flex-col justify-between items-center">
-              <div
-                className={`absolute w-full h-0.5 bg-white transition-transform duration-300 ${
-                  isMenuOpen ? "transform rotate-45 top-1/2 left-0" : "top-0"
-                }`}
-              />
-              <div
-                className={`absolute w-full h-0.5 bg-white transition-opacity duration-300 ${
-                  isMenuOpen ? "opacity-0 top-1/2" : "opacity-100 top-1/2"
-                }`}
-              />
-              <div
-                className={`absolute w-full h-0.5 bg-white transition-transform duration-300 ${
-                  isMenuOpen ? "transform -rotate-45 top-1/2 left-0" : "top-full"
-                }`}
-              />
-            </div>
-          </button>
+        {/* Mobile menu button */}
+        <button
+          className="text-white z-50 md:hidden"
+          onClick={toggleMenu}
+        >
+          <div className="relative w-7 h-6 flex flex-col justify-center">
+            {/* Top line */}
+            <span
+              className={`absolute h-0.5 w-full bg-white transition-all duration-300 ${
+                isMenuOpen ? 'rotate-45 top-1/2' : 'top-0'
+              }`}
+            />
 
-          {/* Navigation links */}
-          <nav className={`md:flex md:flex-row md:items-center md:space-x-4 md:ml-auto ${isMenuOpen ? 'flex flex-col justify-center items-center space-y-6 fixed inset-0 bg-gray-900 bg-opacity-90 z-40' : 'hidden md:flex'}`}>
-            <a href="#home" className={`m-4 text-xl ${activeLink === '#home' ? 'text-teal-500' : 'text-white'}`} onClick={() => isMenuOpen && toggleMenu()}>Home</a>
-            <a href="#about" className={`m-4 text-xl ${activeLink === '#about' ? 'text-teal-500' : 'text-white'}`} onClick={() => isMenuOpen && toggleMenu()}>About</a>
-            <a href="#services" className={`m-4 text-xl ${activeLink === '#services' ? 'text-teal-500' : 'text-white'}`} onClick={() => isMenuOpen && toggleMenu()}>Services</a>
-            <a href="#projects" className={`m-4 text-xl ${activeLink === '#projects' ? 'text-teal-500' : 'text-white'}`} onClick={() => isMenuOpen && toggleMenu()}>Portfolio</a>
-            <a href="#contact" className={`m-4 text-xl ${activeLink === '#contact' ? 'text-teal-500' : 'text-white'}`} onClick={() => isMenuOpen && toggleMenu()}>Contact</a>
-          </nav>
-        </div>
-      </header>
-    </>
+            {/* Middle line */}
+            <span
+              className={`absolute h-0.5 w-full bg-white transition-all duration-300 ${
+                isMenuOpen ? 'opacity-0' : 'top-1/2'
+              }`}
+            />
+
+            {/* Bottom line */}
+            <span
+              className={`absolute h-0.5 w-full bg-white transition-all duration-300 ${
+                isMenuOpen ? '-rotate-45 top-1/2' : 'top-full'
+              }`}
+            />
+          </div>
+        </button>
+
+        {/* Navigation menu */}
+        <nav
+          className={`${
+            isMenuOpen
+              ? 'flex flex-col justify-center items-center space-y-8 fixed inset-0 bg-gray-900 bg-opacity-95 z-40'
+              : 'hidden md:flex md:flex-row md:items-center md:space-x-6'
+          }`}
+        >
+          {['home', 'about', 'services', 'projects', 'contact'].map((item) => (
+            <a
+              key={item}
+              href={`#${item}`}
+              className={`text-xl ${
+                activeLink === `#${item}` ? 'text-teal-500' : 'text-white'
+              }`}
+              onClick={() => isMenuOpen && toggleMenu()}
+            >
+              {item.charAt(0).toUpperCase() + item.slice(1)}
+            </a>
+          ))}
+        </nav>
+      </div>
+    </header>
   );
 };
 
